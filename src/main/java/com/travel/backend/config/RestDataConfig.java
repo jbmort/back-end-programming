@@ -1,6 +1,6 @@
-package main.java.com.travel.backend.config;
+package com.travel.backend.config;
 
-import main.java.com.travel.backend.entities.*;
+import com.travel.backend.entities.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
