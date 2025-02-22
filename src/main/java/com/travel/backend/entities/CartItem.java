@@ -1,11 +1,17 @@
 package com.travel.backend.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "cart_items")
 public class CartItem {
 
@@ -20,8 +26,8 @@ public class CartItem {
 
     @ManyToMany
     @JoinTable(name = "excursion_cartitem",
-            joinColumns = @JoinColumn(name = "cart_item_id"),
-            inverseJoinColumns = @JoinColumn(name = "excursion_id"))
+               joinColumns = @JoinColumn(name = "cart_item_id"),
+               inverseJoinColumns = @JoinColumn(name = "excursion_id"))
     private Set<Excursion> excursions;
 
     @ManyToOne
@@ -29,8 +35,10 @@ public class CartItem {
     private Cart cart;
 
     @Column(name = "create_date")
+    @CreationTimestamp
     private Date create_date;
 
     @Column(name = "last_update")
+    @UpdateTimestamp
     private Date last_update;
  }
