@@ -6,28 +6,32 @@ import com.travel.backend.entities.CartItem;
 import com.travel.backend.entities.Customer;
 import com.travel.backend.entities.StatusType;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 import java.util.UUID;
 
+@Service
 public class CheckoutServiceImpl implements CheckoutService{
 
-    @Autowired
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
+
+    public CheckoutServiceImpl(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
 
     @Override
     @Transactional
     public PurchaseResponse placeOrder(Purchase purchase) {
 
-        if(purchase.getCart() == null || purchase.getCartItems() == null || purchase.getCartItems().size() < 1){
-            return new PurchaseResponse("Cart cannot be empty");
-        }
-        else{
+        String response = "";
+        if (purchase.getCart() == null || purchase.getCartItems() == null || purchase.getCartItems().size() < 1) {
+            response = "Cart cannot be empty";
+        } else {
             Cart cart = purchase.getCart();
+            response = generateOrderTrackingNumber();
 
-            String orderTrackingNumber = generateOrderTrackingNumber();
-            cart.setOrderTrackingNumber(orderTrackingNumber);
+            cart.setOrderTrackingNumber(response);
 
             Set<CartItem> cartItems = purchase.getCartItems();
             cartItems.forEach(item -> cart.add(item));
@@ -38,10 +42,11 @@ public class CheckoutServiceImpl implements CheckoutService{
             customer.add(cart);
 
             customerRepository.save(customer);
-
-            return new PurchaseResponse(orderTrackingNumber);
         }
+
+        return new PurchaseResponse(response);
     }
+
 
     private String generateOrderTrackingNumber() {
         return UUID.randomUUID().toString();

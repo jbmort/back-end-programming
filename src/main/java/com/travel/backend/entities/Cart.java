@@ -31,6 +31,7 @@ public class Cart {
     @Column(name = "party_size")
     private int party_size;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private StatusType status;
 
