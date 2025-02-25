@@ -2,6 +2,7 @@ package com.travel.backend.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -13,7 +14,9 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "divisions")
+@NoArgsConstructor
 public class Division {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "division_id")

@@ -3,7 +3,6 @@ package com.travel.backend.controllers;
 import com.travel.backend.services.CheckoutService;
 import com.travel.backend.services.Purchase;
 import com.travel.backend.services.PurchaseResponse;
-import jakarta.persistence.PostRemove;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin("http://localhost:4200")
